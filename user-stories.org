@@ -1,0 +1,52 @@
+* User Stories For Advanced Asset Browsing
+
+We would like to extend the asset browser to do some meta-data based
+search. Implementation details aside, the user stories should be
+something like this:
+
+** User Wants all (Columnar) Data with A Given Column
+
+The user wishes to search for any data set which contains a given
+column, for concreteness, say this column is called "QSSCAT".
+
+The asset browser now contains an additional text field hinted with
+"query."
+
+[[./new-search-box.png]]
+
+The user types ~columns :has QSSCAT~ and when the search completes any
+columnar data with such a column is returned.  In an ideal world the
+first and third part of the above query would be auto-completed from a
+list of known columns.
+
+[[./simple-query.png]]
+
+** User Wants all Columnar Data with a given value in a given column
+
+In this slightly more complex case the user wishes to find all
+columnar data with both a given column and a given value in that
+column.
+
+They enter a query like ~columns :has QSSCAT :and QSSCAT :has "PROMIS
+Sleep Disturbance"~
+
+[[./query2.png]]
+
+The result set contains only data sets which have that column and in
+which that column contains the value expected.
+
+** User Wants data with at least one column
+
+They enter ~columns :has QSSCAT :or ~columns :has QSSTRESC~
+
+[[./query3.png]]
+
+The results are those data sets with either column.
+
+** User wants data with at least one column but doesn't want to type as much
+
+The user types ~columns :has QSSCAT :or QSSTRESC~ which has the same
+result as above.
+
+These minimal features are sufficient to form complex queries over the
+meta-data data-model described in the "Data Model" document.

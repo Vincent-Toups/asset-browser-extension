@@ -1,0 +1,95 @@
+* The asset browser
+  This is a user interface for examining data sets the user has access
+  to.
+
+  At present it has the following UI elements:
+
+  1. a search panel at the top
+     Search supports a text search over description, name and id
+     And then a series of filters
+     1. asset type
+     2. access
+     3. site
+     4. state
+  2. a list of assets available at the bottom.
+     each asset in this list is characterized
+     1. An asset name
+     2. An asset ID
+     3. A short description
+     4. a submitted by field
+     5. a date
+     6. a status (relative to ubmission: accepted, pending, etc)
+     7. an access notation (site, group, etc)
+
+* Proposed Extensions
+  
+  It is useful to perform deeper searches in data assets. If all
+  assets were unencumbered by confidentiality concerns and encoded in
+  a regular (or purely textual) format then an easy solution to this
+  problem would be to simply allow the user to perform a full text
+  search.
+
+  Unfortunately, in our situation, a more flexible approach may be
+  necessary. For each asset or type of asset a separate meta-data
+  object should define types of meta-data available for search and
+  values of that meta data type, where appropriate, that should be
+  searchable.
+
+  Upon submission the user should be able to upload an associated meta
+  data object. Perhaps instead or in addition to this object the
+  system can calculate such on the back end for well understood object
+  types.
+
+* User Stories
+
+  A user wishes to search for all the assets with columnar data which
+  have a column called: "QSSCAT"
+
+  Each such data set will have a meta-data object with a shape like:
+
+#+begin_src json
+  {
+      ...,
+          column:[...,"QSSCAT",...]
+      ...
+  }
+#+end_src
+
+The user has a free text field where they type:
+
+#+begin_src
+:has-column "QSSCAT"
+#+end_src
+
+And the site brings up only results for which the meta-data contains
+the appropriate column.
+
+* Detailed Specification of Search Functionality
+
+  A meta-data object is a set of key, value pairs where
+
+  1. the key is a string containing no spaces or punctuation beyond `_`
+  2. the value is a list of strings
+
+  The additional meta-data search facility constitutes a simple query language:
+
+  A search is a series of terms like:
+
+  #+begin_src
+  :has-<name> <value> ...
+  #+end_src
+
+  Such terms are all enforced, the effect of which is to progressively
+  restrict the results. For instance:
+
+  #+begin_src
+  :has-column "QSSCAT" :has-column "QSSTRESC"
+  #+end_src
+
+  Would return items whose meta-data column field contains BOTH
+  "QSSCAT" and "QSSTRESC".
+
+* Alternative proposal
+
+  Generate or have users generate appropriate text-descriptions and
+  rely on the extant full text search feature.

@@ -1,0 +1,43 @@
+* Base Query Language
+
+  This document describes a simple query language over the meta-data.
+
+** Terms
+
+   A <symbol> is a set of alphanumeric characters.
+
+   #+begin_src
+[a-ZA-Z0-9_-]+
+#+end_src
+
+   A <string> is a set of characters enclosed in quotation marks (with
+   ordinary escapes required for enclosed quotation marks.
+
+   OR a <string> is a non-quoted series of characters excluding
+   whitespace.
+
+   A logical operator is either:
+
+   ~:or~ or ~:and~
+
+   A <has> is just literally ~:has~ and will be encoded as the latter
+   throughout this document. 
+   
+   A <term> is either triple of the form:
+
+   ~<symbol> :has <string>~
+
+   OR
+
+   <symbol> :has <string1> <logical1> <string2> <logical2>
+   ... <stringN>
+
+   A query is
+
+   <term1> :has <term2> [<logical1> <term3> ... <logicalN-2> <termN>]
+
+See the reference implementation for an example of how to parse this
+query language and transform it into a filter function for meta-data.
+
+
+  

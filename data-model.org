@@ -1,0 +1,44 @@
+* Meta-Data Data Model
+
+This document describes the meta-data data model used to support the
+user stories in the User Stories document.
+
+* Meta-Data
+
+The data model here is described in terms of JSON objects but see the
+appendix for a relational description.
+
+A meta-data object is a set of key, value pairs which we denote here
+as a JSON object:
+
+#+begin_src json
+{ key_1:value_1, ..., key_N:value_N}
+#+end_src
+
+Here ~key_N~ is a string without whitespace characters.
+
+~value_N~ denotes an array of string values without restriction on
+their contents:
+
+#+begin_src json
+[string_1, ..., string_K]
+#+end_src
+
+Eg:
+
+#+begin_src json
+{
+    "columns":["STUDYID", "DOMAIN", "USUBJID", "RFSTDTC", "RFPENDTC",
+    "BRTHDTC", "AGE", "SEX", "RACE", "RACEMULT", "ETHNIC", "STUDYID",
+    "DOMAIN", "USUBJID", "QSSEQ", "QSCAT", "QSSCAT", "QSTESTCD",
+    "QSTEST", "QSSTRESC", "QSSTRESN", "QSDRVFL", "VISITNUM", "VISIT",
+    "QSDTC", "QSDY", "QSEVLINT", "STUDYID", "DOMAIN", "USUBJID",
+    "SCSEQ", "SCTESTCD", "SCTEST", "SCMETHOD", "SCORRES", "SCORRESU",
+    "SCSTRESC", "SCSTRESN", "SCSTRESU"],
+    "column-formats":["text","date","integer","float"]
+}
+#+end_src
+
+This very simple data model is enough to support the user stories and
+the query language description.
+
