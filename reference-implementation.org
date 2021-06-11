@@ -1,0 +1,187 @@
+* Asset Browser meta-data search reference implementation
+
+** Data Set
+
+  Our first job is to define a mock-database of meta-data. Let's build
+  a data base of 100 meta-data entries.
+  
+  #+begin_src js :session "*Javascript REPL*"
+    const fs = require("fs");
+    const source_data = require("source-data");
+    const util = require("gen-util");
+    const generate_n = 1000;
+    
+    const out = util.seq(generate_n, i => {
+        const out = {};
+        const cols = util.draw_sans_replacement(source_data.column,2);
+        out.cols = cols;
+        cols.forEach(col => {
+            const ss = util.draw_sans_replacement(source_data[col],10);
+            out[col] = util.draw_with_replacement(ss,10);
+        });
+        return out;
+    });
+    
+    util.write_json("./database.json",out);
+    console.log("An Example:")
+    console.log(out[0]);
+  #+end_src
+
+  #+RESULTS:
+  : const fs = require("fs");
+
+** Parser
+
+   Let's now write a parser for our thing. First we'll tokenize the data.
+
+   #+begin_src js :session "*Javascript REPL*"
+     function Spaces(){
+         this.done = false;
+     }
+
+     Spaces.prototype.accept = function(c){
+         if (c === ' ' || c === '	'){
+             return true;
+         } else {
+             this.done = true;
+             return false;
+         };
+     }
+
+     function String(){
+         this.escape = false;
+         this.acc = [];
+         this.done = false;
+     }
+
+     String.prototype.accept = function(c){
+         if(this.acc.length !== 0 && !this.escape && c === '"'){           
+             this.done = true;
+             this.acc = this.acc.join("");
+             return true;
+         } else if (this.escape && c === '"'){
+             this.acc.push(c);
+             this.escape = false;
+             return true;
+         } else if (this.escape && c !== '"'){
+             throw new Error("Only a \" can follow a backslash. Instead we got a `"+c+"`.");
+         } else if (!this.escape && c === '\\'){
+             this.escape = true;
+             return true;             
+         } else if (this.acc.length === 0 && c === '"') {
+             return true;
+         } else {
+             this.acc.push(c);
+             return true;
+         }
+     }
+
+     function Symbol(){
+         this.acc = [];
+         this.done = false;
+     }
+
+     Symbol.prototype.accept = function(c){
+         if(c === ' ' || c === '	'){
+             this.done = true;
+             this.acc = this.acc.join("");
+             return true;
+         } else {
+             this.acc.push(c);
+             return true;
+         }         
+     }
+
+     function character_to_acc(c){
+         if(c === ' ' || c === '	'){
+             return new Spaces();
+         } else if (c === '"'){
+             return new String();
+         } else {
+             const out = new Symbol();
+             return out;
+         }
+     }
+
+     const last = (lst) => lst[lst.length-1];
+     
+     const tokenize_string = (s, lexeme_ended) => {
+         var acc = null;
+         var tokens = [];         
+         Array
+             .prototype
+             .slice
+             .call(s)
+             .forEach(element => {
+                 if(acc === null){
+                     acc = character_to_acc(element);
+                 }
+                 acc.accept(element)
+                 if(acc.done){
+                     if(!(acc instanceof Spaces)){
+                         tokens.push(acc);
+                     }
+                     acc = null;
+                 }
+             });
+         return tokens;
+     }
+
+     console.log(tokenize_string('s hello "a string"'));
+     console.log(tokenize_string('s hello "a \\" string"'));
+   #+end_src
+
+   #+RESULTS:
+   : function Spaces(){
+
+Now we need to parse a term. Recall from the specification that a term
+is just a form like this:
+
+#+begin_src
+<symbol> :has <symbol|string> [<logical0> <symbol0|string0> ...]
+#+end_src
+
+We need a few more utilities:
+
+#+begin_src js :session ref-imp
+  // the ending `p` indicates `predicate`
+  const symbolp = (token) => token instanceof Symbol;
+  const hasp = (token) =>
+        symbolp(token) && (token.acc === ':has')
+  const logicalp = (token) =>
+        symbolp(token) && (token.acc === ':and' || token.acc === ':or');
+  const stringp = (token) => (token instanceof String);
+  const string_or_symbolp = (token) => stringp(token) || symbolp(token);
+#+end_src
+
+A parser will simply be a function that accepts a list of tokens and
+returns either `false` to indicate it can't parse that token or list
+with two elements - the parsed object and the rest of the list to be
+parsed.
+
+Let's do a warm up:
+
+#+begin_src js
+
+  const metadata_column_has = (column,value) =>
+        (metadata) => metadata[column] && metadata[column].indexOf(value) !== -1;  
+  
+  const parse_simple_term = (tokens) => {
+      if(symbolp(tokens[0]) &&
+         hasp(tokens[1]) &&
+         string_or_symbolp(tokens[2])){
+          return [metadata_column_has(), tokens.slice(3)];
+      } else {
+          false;
+      }
+  }
+
+  (()=>{
+      const example_tokens = tokenize_string(`column :has fruit`);
+      console.log(parse_simple_term(example_tokens))
+  })()
+  
+  
+#+end_src
+
+#+RESULTS:

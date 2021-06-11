@@ -1,0 +1,76 @@
+% Created 2021-06-11 Fri 16:09
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Vincent Toups}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Vincent Toups},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{Meta-Data Data Model}
+\label{sec:orge357993}
+
+This document describes the meta-data data model used to support the
+user stories in the User Stories document.
+
+\section{Meta-Data}
+\label{sec:org75985a6}
+
+The data model here is described in terms of JSON objects but see the
+appendix for a relational description.
+
+A meta-data object is a set of key, value pairs which we denote here
+as a JSON object:
+
+\begin{verbatim}
+{ key_1:value_1, ..., key_N:value_N}
+\end{verbatim}
+
+Here \texttt{key\_N} is a string without whitespace characters.
+
+\texttt{value\_N} denotes an array of string values without restriction on
+their contents:
+
+\begin{verbatim}
+[string_1, ..., string_K]
+\end{verbatim}
+
+Eg:
+
+\begin{verbatim}
+{
+    "columns":["STUDYID", "DOMAIN", "USUBJID", "RFSTDTC", "RFPENDTC",
+    "BRTHDTC", "AGE", "SEX", "RACE", "RACEMULT", "ETHNIC", "STUDYID",
+    "DOMAIN", "USUBJID", "QSSEQ", "QSCAT", "QSSCAT", "QSTESTCD",
+    "QSTEST", "QSSTRESC", "QSSTRESN", "QSDRVFL", "VISITNUM", "VISIT",
+    "QSDTC", "QSDY", "QSEVLINT", "STUDYID", "DOMAIN", "USUBJID",
+    "SCSEQ", "SCTESTCD", "SCTEST", "SCMETHOD", "SCORRES", "SCORRESU",
+    "SCSTRESC", "SCSTRESN", "SCSTRESU"],
+    "column-formats":["text","date","integer","float"]
+}
+\end{verbatim}
+
+This very simple data model is enough to support the user stories and
+the query language description.
+\end{document}

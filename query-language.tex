@@ -1,0 +1,73 @@
+% Created 2021-06-11 Fri 16:09
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Vincent Toups}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Vincent Toups},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.4.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{Base Query Language}
+\label{sec:org8656b91}
+
+This document describes a simple query language over the meta-data.
+
+\subsection{Terms}
+\label{sec:orgca1beea}
+
+A <symbol> is a set of alphanumeric characters.
+
+\begin{verbatim}
+[a-ZA-Z0-9_-]+
+\end{verbatim}
+
+A <string> is a set of characters enclosed in quotation marks (with
+ordinary escapes required for enclosed quotation marks.
+
+OR a <string> is a non-quoted series of characters excluding
+whitespace.
+
+A logical operator is either:
+
+\texttt{:or} or \texttt{:and}
+
+A <has> is just literally \texttt{:has} and will be encoded as the latter
+throughout this document. 
+
+A <term> is either triple of the form:
+
+\texttt{<symbol> :has <string>}
+
+OR
+
+<symbol> :has <string1> <logical1> <string2> <logical2>
+\ldots{} <stringN>
+
+A query is
+
+<term1> :has <term2> [<logical1> <term3> \ldots{} <logicalN-2> <termN>]
+
+See the reference implementation for an example of how to parse this
+query language and transform it into a filter function for meta-data.
+\end{document}
