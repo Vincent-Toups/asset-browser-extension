@@ -1,0 +1,116 @@
+{
+ "columns":[
+"STUDYID",
+"DOMAIN",
+"USUBJID",
+"RFSTDTC",
+"RFPENDTC",
+"BRTHDTC",
+"AGE",
+"SEX",
+"RACE",
+"RACEMULT",
+"ETHNIC"
+ ],
+ "STUDYID":"SMART",
+ "STUDYID_type":"character",
+ "DOMAIN":"DM",
+ "DOMAIN_type":"character",
+ "USUBJID":[
+"SMART-0201-00039",
+"SMART-0201-00046",
+"SMART-0201-00050",
+"SMART-0202-00011",
+"SMART-0202-00020",
+"SMART-0203-00003",
+"SMART-0203-00004",
+"SMART-0203-00029",
+"SMART-0203-00038"
+ ],
+ "USUBJID_type":"character",
+ "RFSTDTC":[
+  18033,
+  18079,
+  17784,
+  17964,
+  17888,
+  18020,
+  18139,
+  18103,
+  17628
+ ],
+ "RFSTDTC_type":"numeric",
+ "RFSTDTC_range":[
+  17628,
+  18139
+ ],
+ "RFPENDTC":[
+  18190,
+  18146,
+  17784,
+  18063,
+  17946,
+  18097,
+  18275,
+  18208,
+  17876
+ ],
+ "RFPENDTC_type":"numeric",
+ "RFPENDTC_range":[
+  17784,
+  18275
+ ],
+ "BRTHDTC":[
+  -6742,
+  4340,
+  -644,
+  -1736,
+  9296,
+  -6150,
+  -712,
+  -2688,
+  10901
+ ],
+ "BRTHDTC_type":"numeric",
+ "BRTHDTC_range":[
+  -6742,
+  10901
+ ],
+ "AGE":[
+  69,
+  38,
+  52,
+  55,
+  25,
+  67,
+  57,
+  20
+ ],
+ "AGE_type":"numeric",
+ "AGE_range":[
+  20,
+  69
+ ],
+ "SEX":[
+"Male",
+"Female"
+ ],
+ "SEX_type":"character",
+ "RACE":"Multiple",
+ "RACE_type":"character",
+ "RACEMULT":[
+"Asian;White",
+"Black or African American;White",
+"Asian;Black or African American;White"
+ ],
+ "RACEMULT_type":"character",
+ "ETHNIC":[
+"Not Hispanic or Latino",
+"Hispanic or Latino",
+"Not reported"
+ ],
+ "ETHNIC_type":"character",
+ "rows": 9,
+ "source_file":"source_data/DM.csv",
+ "complete": false
+}

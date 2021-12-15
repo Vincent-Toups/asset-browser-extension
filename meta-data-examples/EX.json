@@ -1,0 +1,108 @@
+{
+ "columns":[
+"STUDYID",
+"DOMAIN",
+"USUBJID",
+"VISITNUM",
+"VISIT",
+"EXSEQ",
+"EXDTC",
+"EXDY",
+"EXTRT",
+"EXCAT",
+"EXTRTOTH",
+"EXACN",
+"EXADJ",
+"EXDOSE",
+"EXDOSEU",
+"EXROUTE",
+"EXEVLINT"
+ ],
+ "STUDYID":[
+
+ ],
+ "STUDYID_type":"character",
+ "DOMAIN":[
+
+ ],
+ "DOMAIN_type":"character",
+ "USUBJID":[
+
+ ],
+ "USUBJID_type":"character",
+ "VISITNUM":[
+
+ ],
+ "VISITNUM_type":"numeric",
+ "VISITNUM_range":[
+  "Inf",
+  "-Inf"
+ ],
+ "VISIT":[
+
+ ],
+ "VISIT_type":"character",
+ "EXSEQ":[
+
+ ],
+ "EXSEQ_type":"numeric",
+ "EXSEQ_range":[
+  "Inf",
+  "-Inf"
+ ],
+ "EXDTC":[
+
+ ],
+ "EXDTC_type":"numeric",
+ "EXDTC_range":[
+  "Inf",
+  "-Inf"
+ ],
+ "EXDY":[
+
+ ],
+ "EXDY_type":"numeric",
+ "EXDY_range":[
+  "Inf",
+  "-Inf"
+ ],
+ "EXTRT":[
+
+ ],
+ "EXTRT_type":"character",
+ "EXCAT":[
+
+ ],
+ "EXCAT_type":"character",
+ "EXTRTOTH":[
+
+ ],
+ "EXTRTOTH_type":"character",
+ "EXACN":[
+
+ ],
+ "EXACN_type":"character",
+ "EXADJ":[
+
+ ],
+ "EXADJ_type":"character",
+ "EXDOSE":[
+
+ ],
+ "EXDOSE_type":"character",
+ "EXDOSEU":[
+
+ ],
+ "EXDOSEU_type":"character",
+ "EXROUTE":[
+
+ ],
+ "EXROUTE_type":"character",
+ "EXEVLINT":[
+
+ ],
+ "EXEVLINT_type":"character",
+ "rows": 0,
+ "source_file":"source_data/EX.csv",
+ "complete": false
+}
